@@ -664,8 +664,7 @@ aren't ready for this boss yet!
 -}
 firstDigit :: Int -> Int
 firstDigit n 
-  | (n > 9 || n < -9) = let modNum = mod n 10
-                            nextNum = div (n - modNum) 10
+  | (n > 9 || n < -9) = let nextNum = div (n - (mod n 10)) 10
                         in firstDigit nextNum
   | otherwise = n
 
