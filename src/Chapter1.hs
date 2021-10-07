@@ -491,7 +491,7 @@ Implement a function that returns the last digit of a given number.
 -}
 -- DON'T FORGET TO SPECIFY THE TYPE IN HERE
 lastDigit :: Int -> Int
-lastDigit n = mod n 10
+lastDigit n = mod (abs n) 10
 
 
 {- |
@@ -521,7 +521,7 @@ branches because it is an expression and it must always return some value.
   satisfying the check will be returned and, therefore, evaluated.
 -}
 closestToZero :: Int -> Int -> Int
-closestToZero x y = if x < y then x else y
+closestToZero x y = if abs x < abs y then x else y
 
 
 {- |
@@ -558,7 +558,9 @@ mid :: Int -> Int -> Int -> Int
 mid x y z
     | (x > y && x < z) || (x < y && x > z) = x
     | (y > x && y < z) || (y < x && y > z) = y
-    | otherwise = z
+    | (z > x && z < y) || (z < x && z > y) = z
+    | (z == x || z == y) = z
+    | otherwise = x
 
 {- |
 =⚔️= Task 8
@@ -639,10 +641,10 @@ specifying complex expressions.
 sumLast2 :: Int -> Int
 sumLast2 n = 
   if (n > 9 || n < -9) then 
-    let last = mod n 10
-        secondLast = mod last 10
-    in last + secondLast
-  else n
+    let last = mod (abs n) 10
+        secondLast = mod (div (abs (n)-last) 10) 10
+    in abs last + abs secondLast
+  else abs n
 
 
 {- |
